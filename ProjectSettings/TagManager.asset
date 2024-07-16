@@ -9,6 +9,7 @@ TagManager:
   - Bound
   - LaserWall
   - NoStopZone
+  - Dust
   layers:
   - Default
   - TransparentFX

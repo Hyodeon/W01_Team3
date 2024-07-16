@@ -13,7 +13,7 @@ public class Button : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Dust"))
         {
             swButton.transform.localPosition = new Vector3(0, -0.3f, 0);
             foreach (GameObject wall in laserWall)
