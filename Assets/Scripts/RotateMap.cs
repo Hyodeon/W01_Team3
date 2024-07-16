@@ -42,10 +42,15 @@ public class RotateMap : MonoBehaviour
 
             foreach(GameObject ind in Indicators)
             {
-                ind.GetComponent<PlayerIndicator>().DoMapRotate(t);
+                ind.gameObject.SetActive(false);
             }
 
             yield return null;
+        }
+
+        foreach (GameObject ind in Indicators)
+        {
+            ind.gameObject.SetActive(true);
         }
 
         // 정확한 회전 각도 설정

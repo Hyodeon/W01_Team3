@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TileLoader : MonoBehaviour
 {
-    public GameObject prefab1;
-    public GameObject prefab2;
+    public GameObject[] tilePrefab;
     public GameObject parent;
     public GameObject boundPrefab; // Bound 프리팹을 인스펙터에서 할당
     public TextAsset csvFile;      // 인스펙터에서 할당할 수 있도록 TextAsset 타입으로 선언
@@ -58,10 +57,16 @@ public class TileLoader : MonoBehaviour
                 switch (tileType)
                 {
                     case 1:
-                        Instantiate(prefab1, position, Quaternion.identity, parent.transform);
+                        Instantiate(tilePrefab[0], position, Quaternion.identity, parent.transform);
                         break;
                     case 2:
-                        Instantiate(prefab2, position, Quaternion.identity, parent.transform);
+                        Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
+                        break;
+                    case 3:
+                        Instantiate(tilePrefab[2], position, Quaternion.identity, parent.transform);
+                        break;
+                    case 4:
+                        Instantiate(tilePrefab[3], position, Quaternion.identity, parent.transform);
                         break;
                     case 8:
                         player.transform.position = position;
