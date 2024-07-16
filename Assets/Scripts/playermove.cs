@@ -122,7 +122,7 @@ public class playermove : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal"))
         {
             Debug.Log("Clear");
-            PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
+            if(PlayerPrefs.GetInt("Clear") < MenuManager.MapNum + 2) PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
         }
     }
 
