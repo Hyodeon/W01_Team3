@@ -9,6 +9,11 @@ public class RotateMap : MonoBehaviour
     public float rotationAngle = 90f; // 회전 각도
     private bool isRotating = false; // 회전 중인지 여부
 
+    // 도는 상황 접근자
+    public bool IsRotating { get { return isRotating; } }
+
+    public GameObject[] Indicators;
+
     void Update()
     {
         // 마우스 우클릭 감지
@@ -34,6 +39,12 @@ public class RotateMap : MonoBehaviour
             t += Time.deltaTime;
             float zRotation = Mathf.Lerp(startRotation, endRotation, t / duration);
             transform.rotation = Quaternion.Euler(0, 0, zRotation);
+
+            foreach(GameObject ind in Indicators)
+            {
+                ind.GetComponent<PlayerIndicator>().DoMapRotate(t);
+            }
+
             yield return null;
         }
 

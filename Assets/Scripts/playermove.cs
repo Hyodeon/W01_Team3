@@ -11,9 +11,12 @@ public class playermove : MonoBehaviour
     private bool isGrounded = true;
     private bool isStoped = false;
     private Rigidbody2D rb;
-
+    public GameObject indicator;
+    private bool isAlive = true;
 
     private Vector2 postForce;
+
+    public GameObject sandClockUI;
 
 
     void Start()
@@ -42,12 +45,16 @@ public class playermove : MonoBehaviour
             if(isStoped)
             {
                 isStoped = false;
+                indicator.SetActive(false);
+                sandClockUI.SetActive(false);
                 rb.gravityScale = 1;
                 rb.velocity = postForce;
             }
             else
             {
                 isStoped = true;
+                indicator.SetActive(true);
+                sandClockUI.SetActive(true);
                 postForce = rb.velocity;
                 rb.velocity = Vector2.zero;
                 rb.totalForce = Vector2.zero;
@@ -74,7 +81,11 @@ public class playermove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bound"))
         {
-            ShowDeathNum.death++;
+            if (isAlive)
+            {
+                isAlive = false;
+                ShowDeathNum.death++;
+            }
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
