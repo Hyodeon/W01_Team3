@@ -29,6 +29,10 @@ public class playermove : MonoBehaviour
 
     void Update()
     {
+        RayCheck();
+
+        transform.rotation = new Quaternion(0, 0, 0, 0);
+
         // ÁÂ¿ì ÀÌµ¿
         float moveInput = Input.GetAxis("Horizontal");
         if(!isStoped)
@@ -101,5 +105,26 @@ public class playermove : MonoBehaviour
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public void RayCheck()
+    {
+        // 플레이어 벽 체크
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 0.2f, Vector2.zero, 0.2f);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+
+                rMap.GetComponent<RotateMap>().AttachPlayer();
+
+                return;
+            }
+        }
+
+        rMap.GetComponent<RotateMap>().DetachPlayer();
+        return;
+
     }
 }

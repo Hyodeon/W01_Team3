@@ -8,11 +8,13 @@ public class RotateMap : MonoBehaviour
     public float rotationDuration = 1f; // 회전에 걸리는 시간 (초)
     public float rotationAngle = 90f; // 회전 각도
     private bool isRotating = false; // 회전 중인지 여부
+    private bool isAttached = false;
 
     // 도는 상황 접근자
     public bool IsRotating { get { return isRotating; } }
 
     public GameObject[] Indicators;
+    public GameObject player;
 
     void Update()
     {
@@ -34,6 +36,8 @@ public class RotateMap : MonoBehaviour
         float endRotation = startRotation + angle;
         float t = 0f;
 
+        Vector3 playerStartPos = player.transform.position;
+
         while (t < duration)
         {
             t += Time.deltaTime;
@@ -53,8 +57,20 @@ public class RotateMap : MonoBehaviour
             ind.gameObject.SetActive(true);
         }
 
+        DetachPlayer();
+
         // 정확한 회전 각도 설정
         transform.rotation = Quaternion.Euler(0, 0, endRotation);
         isRotating = false;
+    }
+
+    public void AttachPlayer()
+    {
+        player.transform.SetParent(this.transform);
+    }
+
+    public void DetachPlayer()
+    {
+        player.transform.SetParent(null);
     }
 }
