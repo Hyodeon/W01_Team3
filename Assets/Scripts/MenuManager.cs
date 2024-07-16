@@ -24,13 +24,6 @@ public class MenuManager : MonoBehaviour
             buttons[i].interactable = true;
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StartPressed()
     {
         TitleSection.gameObject.SetActive(false);
@@ -61,6 +54,14 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Button value " + value);
         MapFile = MapFiles[value];
         MapNum = value;
-        SceneManager.LoadScene("Scenes/SHScene_ew");
+        PlayerPrefs.SetInt("Stage", value+1);
+        PlayerPrefs.SetInt("NowDeath", 0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void DevButton()
+    {
+        PlayerPrefs.SetInt("Clear", 21);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
