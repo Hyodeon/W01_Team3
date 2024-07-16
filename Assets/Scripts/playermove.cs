@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class playermove : MonoBehaviour
     private bool isStoped = false;
     private Rigidbody2D rb;
 
+
     private Vector2 postForce;
 
 
@@ -21,14 +23,14 @@ public class playermove : MonoBehaviour
 
     void Update()
     {
-        // ¡¬øÏ ¿Ãµø
+        // √Å√Ç¬ø√¨ √Ä√å¬µ¬ø
         float moveInput = Input.GetAxis("Horizontal");
         if(!isStoped)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
         
-        // ¡°«¡
+        // √Å¬°√á√Å
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isStoped)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -72,6 +74,7 @@ public class playermove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bound"))
         {
+            ShowDeathNum.death++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
