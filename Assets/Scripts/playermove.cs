@@ -12,6 +12,7 @@ public class playermove : MonoBehaviour
     private bool isStoped = false;
     private Rigidbody2D rb;
 
+    public GameObject indicator;
 
     private Vector2 postForce;
 
@@ -42,12 +43,14 @@ public class playermove : MonoBehaviour
             if(isStoped)
             {
                 isStoped = false;
+                indicator.SetActive(false);
                 rb.gravityScale = 1;
                 rb.velocity = postForce;
             }
             else
             {
                 isStoped = true;
+                indicator.SetActive(true);
                 postForce = rb.velocity;
                 rb.velocity = Vector2.zero;
                 rb.totalForce = Vector2.zero;
