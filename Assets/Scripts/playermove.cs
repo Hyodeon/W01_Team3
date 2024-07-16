@@ -23,6 +23,9 @@ public class playermove : MonoBehaviour
     public GameObject[] Indicators;
     public GameObject rMap;
 
+    private string playerType;
+    public string PlayerType {  get { return playerType; } }
+
 
     void Start()
     {
@@ -127,12 +130,7 @@ public class playermove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bound"))
         {
-            if (isAlive)
-            {
-                isAlive = false;
-                ShowDeathNum.death++;
-            }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Die();
         }
         if (collision.gameObject.CompareTag("NoStopZone"))
         {
@@ -177,5 +175,31 @@ public class playermove : MonoBehaviour
         rMap.GetComponent<RotateMap>().DetachPlayer();
         return;
 
+    }
+
+    public void Die()
+    {
+        if (isAlive)
+        {
+            isAlive = false;
+            ShowDeathNum.death++;
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ChangeColor(string type)
+    {
+        Color color = type switch
+        {
+            "red" => Color.red,
+            "blue" => Color.blue,
+            "green" => Color.green,
+            "purple" => Color.magenta,
+            _ => Color.grey
+        };
+
+        playerType = type;
+
+        GetComponent<SpriteRenderer>().color = color;
     }
 }
