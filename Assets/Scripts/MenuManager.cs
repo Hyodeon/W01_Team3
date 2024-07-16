@@ -10,15 +10,18 @@ public class MenuManager : MonoBehaviour
     public UnityEngine.UI.Button[] buttons;
     public TextAsset[] MapFiles;
     public static TextAsset MapFile;
+    public static int MapNum;
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < buttons.Length && i < MapFiles.Length; i++)
+        if (PlayerPrefs.GetInt("Clear") <= 0) PlayerPrefs.SetInt("Clear", 1);
+        if(PlayerPrefs.GetInt("Clear") >= 20) SpecialGroup.gameObject.SetActive(true);
+        else SpecialGroup.gameObject.SetActive(false);
+        for (int i = 0; i < buttons.Length && i < MapFiles.Length && i < PlayerPrefs.GetInt("Clear"); i++)
         {
             int val = i;
             buttons[i].onClick.AddListener(() => OnButtonClick(val));
             buttons[i].interactable = true;
-            Resources.Load("Assets/Map/MapBuilder - Map_" + (i + 1));
         }
     }
 
@@ -57,6 +60,7 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("Button value " + value);
         MapFile = MapFiles[value];
+        MapNum = value;
         SceneManager.LoadScene("Scenes/SHScene_ew");
     }
 }
