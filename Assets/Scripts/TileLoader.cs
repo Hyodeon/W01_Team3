@@ -16,9 +16,13 @@ public class TileLoader : MonoBehaviour
     public GameObject player;
     public GameObject goal;
 
+    public TextDisplay TD;
+
     void Start()
     {
+        Time.timeScale = 1;
         LoadTilesFromCSV();
+        TD.StageUpdate();
         AddBounds();
         if (mainCamera != null)
         {
