@@ -23,7 +23,7 @@ public class TileLoader : MonoBehaviour
         if (mainCamera != null)
         {
             mainCamera.orthographicSize = size;
-            mainCamera.transform.position = new Vector3(size - 1.5f, 0, -10);
+            mainCamera.transform.position = new Vector3(size - 0.5f, 0, -10);
         }
     }
 
