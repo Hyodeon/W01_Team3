@@ -7,14 +7,13 @@ public class playermove : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    private bool isGrounded;
+    private bool isGrounded = true;
     private Rigidbody2D rb;
-    private SpriteRenderer sr;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -36,15 +35,17 @@ public class playermove : MonoBehaviour
         {
             isGrounded = true;
         }
-
-        if (collision.gameObject.CompareTag("Bound"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
         if (collision.gameObject.CompareTag("Goal"))
         {
             Debug.Log("Clear");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bound"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
