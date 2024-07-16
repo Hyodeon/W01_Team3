@@ -84,6 +84,11 @@ public class playermove : MonoBehaviour
             }
             
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     void FixedUpdate()
@@ -114,6 +119,7 @@ public class playermove : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal"))
         {
             Debug.Log("Clear");
+            PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
         }
     }
 
