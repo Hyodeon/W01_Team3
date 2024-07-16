@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,6 @@ public class playermove : MonoBehaviour
     public float jumpForce = 10f;
     private bool isGrounded = true;
     private Rigidbody2D rb;
-
 
     void Start()
     {
@@ -45,6 +45,7 @@ public class playermove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bound"))
         {
+            ShowDeathNum.death++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
