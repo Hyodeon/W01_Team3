@@ -14,6 +14,8 @@ public class playermove : MonoBehaviour
 
     private bool isAlive = true;
 
+    private bool isInZone = false;
+
     private Vector2 postForce;
 
     // External Bind Objects
@@ -49,7 +51,7 @@ public class playermove : MonoBehaviour
             isGrounded = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating)
+        if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating && !isInZone)
         {
             if(isStoped)
             {
@@ -84,6 +86,25 @@ public class playermove : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        CheckIfInNoStopZone();
+    }
+
+    private void CheckIfInNoStopZone()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.4f);
+        isInZone = false;
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (collider.CompareTag("NoStopZone"))
+            {
+                isInZone = true;
+                break;
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
@@ -106,6 +127,28 @@ public class playermove : MonoBehaviour
                 ShowDeathNum.death++;
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if (collision.gameObject.CompareTag("NoStopZone"))
+        {
+            isInZone = true;
+            isStoped = false;
+
+            foreach (GameObject ind in Indicators)
+            {
+                ind.SetActive(false);
+            }
+
+            sandClockUI.SetActive(false);
+            rb.gravityScale = 1;
+            rb.velocity = postForce;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("NoStopZone"))
+        {
+            isInZone = false;
         }
     }
 
