@@ -11,7 +11,7 @@ public class playermove : MonoBehaviour
     private bool isGrounded = true;
     private bool isStoped = false;
     private Rigidbody2D rb;
-
+    private bool isAlive = true;
 
     private Vector2 postForce;
 
@@ -74,7 +74,11 @@ public class playermove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bound"))
         {
-            ShowDeathNum.death++;
+            if (isAlive)
+            {
+                isAlive = false;
+                ShowDeathNum.death++;
+            }
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
