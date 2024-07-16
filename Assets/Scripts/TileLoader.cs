@@ -28,6 +28,7 @@ public class TileLoader : MonoBehaviour
 
     void LoadTilesFromCSV()
     {
+        csvFile = MenuManager.MapFile;
         if (csvFile == null)
         {
             Debug.LogError("CSV 파일이 할당되지 않았습니다.");

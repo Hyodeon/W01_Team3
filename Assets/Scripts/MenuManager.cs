@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject TitleSection, ControlsSection, LevelSection;
+    public GameObject TitleSection, ControlsSection, LevelSection, SpecialGroup;
     public UnityEngine.UI.Button[] buttons;
     public TextAsset[] MapFiles;
+    public static TextAsset MapFile;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class MenuManager : MonoBehaviour
             int val = i;
             buttons[i].onClick.AddListener(() => OnButtonClick(val));
             buttons[i].interactable = true;
+            Resources.Load("Assets/Map/MapBuilder - Map_" + (i + 1));
         }
     }
 
@@ -54,6 +56,7 @@ public class MenuManager : MonoBehaviour
     public void OnButtonClick(int value)
     {
         Debug.Log("Button value " + value);
+        MapFile = MapFiles[value];
         SceneManager.LoadScene("Scenes/SHScene");
     }
 }
