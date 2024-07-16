@@ -11,12 +11,15 @@ public class playermove : MonoBehaviour
     private bool isGrounded = true;
     private bool isStoped = false;
     private Rigidbody2D rb;
-    public GameObject indicator;
+
     private bool isAlive = true;
 
     private Vector2 postForce;
 
+    // External Bind Objects
     public GameObject sandClockUI;
+    public GameObject[] Indicators;
+    public GameObject rMap;
 
 
     void Start()
@@ -40,12 +43,17 @@ public class playermove : MonoBehaviour
             isGrounded = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating)
         {
             if(isStoped)
             {
                 isStoped = false;
-                indicator.SetActive(false);
+
+                foreach(GameObject ind in Indicators)
+                {
+                    ind.SetActive(false);
+                }
+
                 sandClockUI.SetActive(false);
                 rb.gravityScale = 1;
                 rb.velocity = postForce;
@@ -53,7 +61,12 @@ public class playermove : MonoBehaviour
             else
             {
                 isStoped = true;
-                indicator.SetActive(true);
+
+                foreach (GameObject ind in Indicators)
+                {
+                    ind.SetActive(true);
+                }
+
                 sandClockUI.SetActive(true);
                 postForce = rb.velocity;
                 rb.velocity = Vector2.zero;

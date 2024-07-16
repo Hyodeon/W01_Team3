@@ -7,13 +7,15 @@ public class PlayerIndicator : MonoBehaviour
     public GameObject player;
     public RotateMap rMap;
 
+    public bool isRight;
+
     void Update()
     {
         if (rMap.IsRotating) return;
 
         Vector3 playerPosition = player.transform.position;
 
-        Vector3 rotatedPosition = RotatePointAroundOrigin2D(playerPosition, 90);
+        Vector3 rotatedPosition = RotatePointAroundOrigin2D(playerPosition, (isRight ? 1 : -1) * 90);
 
         // 회전 적용
         transform.position = rotatedPosition;
@@ -33,9 +35,9 @@ public class PlayerIndicator : MonoBehaviour
 
     public void DoMapRotate(float t)
     {
-        float ratio = Mathf.Clamp01(t / 1.0f);
+        float ratio = Mathf.Clamp01(t / 0.5f);
 
-        float angle = 90f - 90f * ratio;
+        float angle = isRight ? 90f - 90f * ratio : 90f * ratio;
         Vector3 playerPosition = player.transform.position;
 
         transform.position = RotatePointAroundOrigin2D(playerPosition, angle);
