@@ -16,6 +16,8 @@ public class playermove : MonoBehaviour
 
     private Vector2 postForce;
 
+    public GameObject sandClockUI;
+
 
     void Start()
     {
@@ -44,6 +46,7 @@ public class playermove : MonoBehaviour
             {
                 isStoped = false;
                 indicator.SetActive(false);
+                sandClockUI.SetActive(false);
                 rb.gravityScale = 1;
                 rb.velocity = postForce;
             }
@@ -51,6 +54,7 @@ public class playermove : MonoBehaviour
             {
                 isStoped = true;
                 indicator.SetActive(true);
+                sandClockUI.SetActive(true);
                 postForce = rb.velocity;
                 rb.velocity = Vector2.zero;
                 rb.totalForce = Vector2.zero;
