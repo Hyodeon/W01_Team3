@@ -31,7 +31,9 @@ public class playermove : MonoBehaviour
     {
         RayCheck();
 
-        transform.rotation = new Quaternion(0, 0, 0, 0);
+        
+        transform.rotation = Quaternion.Euler(rMap.transform.rotation.x,
+            rMap.transform.rotation.y, -rMap.transform.rotation.z);
 
         // ÁÂ¿ì ÀÌµ¿
         float moveInput = Input.GetAxis("Horizontal");

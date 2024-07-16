@@ -44,7 +44,7 @@ public class RotateMap : MonoBehaviour
             float zRotation = Mathf.Lerp(startRotation, endRotation, t / duration);
             transform.rotation = Quaternion.Euler(0, 0, zRotation);
 
-            foreach(GameObject ind in Indicators)
+            foreach (GameObject ind in Indicators)
             {
                 ind.gameObject.SetActive(false);
             }
