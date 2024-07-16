@@ -9,7 +9,12 @@ public class playermove : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private bool isGrounded = true;
+    private bool isStoped = false;
     private Rigidbody2D rb;
+
+
+    private Vector2 postForce;
+
 
     void Start()
     {
@@ -18,15 +23,38 @@ public class playermove : MonoBehaviour
 
     void Update()
     {
-        // ¡¬øÏ ¿Ãµø
+        // √Å√Ç¬ø√¨ √Ä√å¬µ¬ø
         float moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-
-        // ¡°«¡
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if(!isStoped)
+        {
+            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        }
+        
+        // √Å¬°√á√Å
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isStoped)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isGrounded = false;
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            if(isStoped)
+            {
+                isStoped = false;
+                rb.gravityScale = 1;
+                rb.velocity = postForce;
+            }
+            else
+            {
+                isStoped = true;
+                postForce = rb.velocity;
+                rb.velocity = Vector2.zero;
+                rb.totalForce = Vector2.zero;
+                rb.gravityScale = 0;
+                
+            }
+            
         }
     }
 
