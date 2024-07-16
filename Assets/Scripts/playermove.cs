@@ -26,6 +26,7 @@ public class playermove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isGrounded = false;
         }
     }
 
@@ -46,14 +47,6 @@ public class playermove : MonoBehaviour
         if (collision.gameObject.CompareTag("Bound"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            isGrounded = false;
         }
     }
 }
