@@ -57,6 +57,6 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("Button value " + value);
         MapFile = MapFiles[value];
-        SceneManager.LoadScene("Scenes/SHScene");
+        SceneManager.LoadScene("Scenes/SHScene_ew");
     }
 }
