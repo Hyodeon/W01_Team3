@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9184863666644093143}
   - component: {fileID: 6738251204129892}
+  - component: {fileID: 2056718508838967599}
   m_Layer: 0
   m_Name: 04_LaserShooter
   m_TagString: Untagged
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2056718508838967599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949605943530365874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9099aff1ba3bada408ec2fc7721aa0fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 
+  id: 0
+  laserPrefab: {fileID: 2303562479045671359, guid: 401b1b978b504af4a96b8a2a0a43156f, type: 3}
