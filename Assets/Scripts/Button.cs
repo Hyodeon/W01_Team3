@@ -30,7 +30,7 @@ public class Button : MonoBehaviour
     {
         if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Dust"))
             && !isUsed)
-        { // 플에이어 접촉시
+        { // 플레이어 접촉시
             isUsed = true;
             Debug.Log("작동!!");
 

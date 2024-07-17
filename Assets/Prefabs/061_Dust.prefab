@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 76045075461372701}
   - component: {fileID: 7185978769998717117}
   m_Layer: 0
-  m_Name: 061_dust
-  m_TagString: Untagged
+  m_Name: 061_Dust
+  m_TagString: Dust
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
