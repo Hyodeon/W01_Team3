@@ -36,15 +36,18 @@ public class TileLoader : MonoBehaviour
             mainCamera.orthographicSize = size;
             mainCamera.transform.position = new Vector3(size - 4f, 0, -10);
         }
-
-        for (int i = 0; i < 10; i++)
-        {
-            laserList.Add(i, new List<GameObject>());
-        }
     }
 
     void LoadTilesFromCSV()
     {
+
+        buttonList.Clear();
+        laserList.Clear();
+        for (int i = 0; i < 10; i++)
+        {
+            laserList.Add(i, new List<GameObject>());
+        }
+
         csvFile = MenuManager.MapFile;
         if (csvFile == null)
         {
