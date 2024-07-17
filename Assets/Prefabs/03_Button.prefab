@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4719195087662738159}
   m_Layer: 2
   m_Name: 03_Button
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,6 +177,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swButton: {fileID: 8267504622263156737}
+  id: 0
+  LaserList: []
 --- !u!1 &8267504622263156737
 GameObject:
   m_ObjectHideFlags: 0
