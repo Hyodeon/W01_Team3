@@ -102,25 +102,6 @@ public class playermove : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        CheckIfInNoStopZone();
-    }
-
-    private void CheckIfInNoStopZone()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.4f);
-        isInZone = false;
-        foreach (Collider2D collider in hitColliders)
-        {
-            if (collider.CompareTag("NoStopZone"))
-            {
-                isInZone = true;
-                break;
-            }
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
@@ -166,6 +147,14 @@ public class playermove : MonoBehaviour
         if (collision.gameObject.CompareTag("NoStopZone"))
         {
             isInZone = false;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("NoStopZone"))
+        {
+            isInZone = true;
         }
     }
 
