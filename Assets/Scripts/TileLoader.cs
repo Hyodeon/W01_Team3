@@ -148,7 +148,7 @@ public class TileLoader : MonoBehaviour
 
             case '3':
                 // 레이저 버튼
-                GameObject temp2 = Instantiate(tilePrefab[typeNumber + 1], pos, Quaternion.identity, parent.transform);
+                GameObject temp2 = Instantiate(tilePrefab[typeNumber], pos, Quaternion.identity, parent.transform);
                 int id1 = int.Parse(tileType[1].ToString());
 
                 temp2.GetOrAddComponent<Button>().id = id1;
@@ -158,7 +158,7 @@ public class TileLoader : MonoBehaviour
 
             case '4':
                 // 레이저 사출기
-                GameObject temp4 = Instantiate(tilePrefab[typeNumber + 1], pos, Quaternion.identity, parent.transform);
+                GameObject temp4 = Instantiate(tilePrefab[typeNumber], pos, Quaternion.identity, parent.transform);
                 temp4.GetOrAddComponent<Laser>().type = tileType[1] switch
                 {
                     '1' => "up",
