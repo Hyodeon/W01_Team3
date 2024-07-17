@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3831310351829797551}
   - component: {fileID: 6497860097015545427}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8922638652504717932}
   - component: {fileID: 8547380955328135538}
   - component: {fileID: 384370136310100358}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GaugeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7242064583989704955}
   - component: {fileID: 496483670101758982}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 41905306955450542}
   - component: {fileID: 5402810151498489252}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Guage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6715994166801506109}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SandClock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8603370995135115043}
   - component: {fileID: 7066536373637227168}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GaugeBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5136369741622728}
   - component: {fileID: 8760089538036887717}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8433188240119489336}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
