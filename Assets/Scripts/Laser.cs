@@ -26,7 +26,6 @@ public class Laser : MonoBehaviour
         get { return _state; }
         set
         {
-            ModifyLaser(value);
             _state = value;
         }
     }
