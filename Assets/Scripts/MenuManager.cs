@@ -23,6 +23,16 @@ public class MenuManager : MonoBehaviour
             buttons[i].onClick.AddListener(() => OnButtonClick(val));
             buttons[i].interactable = true;
         }
+        if (PlayerPrefs.GetInt("Clear") >= 20)
+        {
+            for (int i = 21; i < buttons.Length && i < MapFiles.Length; i++)
+            {
+                int val = i;
+                buttons[i].onClick.AddListener(() => OnButtonClick(val));
+                buttons[i].interactable = true;
+            }
+        }
+            
     }
     public void StartPressed()
     {
