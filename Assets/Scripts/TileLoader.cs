@@ -77,7 +77,7 @@ public class TileLoader : MonoBehaviour
                 GenerateTile(tileType, position);
             }
         }
-
+        Debug.Log("1");
         ConnectLaser();
     }
 
@@ -161,18 +161,22 @@ public class TileLoader : MonoBehaviour
                 GameObject temp4 = Instantiate(tilePrefab[typeNumber], pos, Quaternion.identity, parent.transform);
                 temp4.GetOrAddComponent<Laser>().type = tileType[1] switch
                 {
-                    '1' => "up",
-                    '2' => "down",
-                    '3' => "left",
-                    '4' => "right",
+                    '1' => "down",
+                    '2' => "up",
+                    '3' => "right",
+                    '4' => "left",
                     _ => "none"
                 };
-                temp4.GetOrAddComponent<Laser>().id = int.Parse(tileType[3].ToString());
+                int id2 = int.Parse(tileType[3].ToString());
+
+                temp4.GetOrAddComponent<Laser>().id = id2;
+
+
+                temp4.GetOrAddComponent<Laser>().State = tileType[2] == 'P';
+
 
                 temp4.GetOrAddComponent<Laser>().Initialize();
-                int id2 = int.Parse(tileType[1].ToString());
 
-                temp4.GetOrAddComponent<Button>().id = id2;
                 laserList[id2].Add(temp4);
 
                 break;
@@ -204,11 +208,15 @@ public class TileLoader : MonoBehaviour
 
     void ConnectLaser()
     {
+
         foreach (var btn in buttonList)
         {
+
             int id = btn.Key;
 
             btn.Value.GetComponent<Button>().RegisterLaser(laserList[id]);
+
+            Debug.Log($"버튼 id : {id} 에는 {laserList[id].Count}개의 레이저가 포함됩니다.");
         }
     }
 }

@@ -32,10 +32,13 @@ public class Button : MonoBehaviour
             && !isUsed)
         { // 플에이어 접촉시
             isUsed = true;
+            Debug.Log("작동!!");
 
             foreach (Laser laser in LaserList)
             {
+                Debug.Log(laser.gameObject.name);
                 laser.State = !laser.State;
+                laser.ModifyLaser(laser.State);
             }
         }
     }
