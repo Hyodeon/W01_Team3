@@ -13,7 +13,7 @@ public class Laser : MonoBehaviour
 
     private LaserBeam laserBeam;
 
-    private float maxDistance = 100f;
+    private float maxDistance = 400f;
 
     private Vector2 origin;
     private Vector2 direction;
@@ -70,6 +70,7 @@ public class Laser : MonoBehaviour
 
     public void GenerateLaser()
     {
+        bool isFarAway = false;
 
         origin = type switch
         {
@@ -93,6 +94,11 @@ public class Laser : MonoBehaviour
             Debug.Log($"{hit.collider.name} 오브젝트까지 탐색 완료. 레이저 발사 준비!");
             distance = hit.distance;
         }
+        else
+        {
+            isFarAway = true;
+            distance = 100f;
+        }
 
 
         // 2. 레이저 오브젝트 생성 (길이 조절, 회전)
@@ -109,7 +115,9 @@ public class Laser : MonoBehaviour
 
 
         // 3. 레이저 오브젝트 배치
-        Vector2 midPoint = (origin + hit.point) / 2;
+        Vector2 midPoint = !isFarAway ? (origin + hit.point) / 2 :
+            (2 * origin + (direction * distance)) / 2;
+
         Debug.Log($"{origin}과 {hit.point}");
         instance.transform.position = midPoint;
 
@@ -146,5 +154,45 @@ public class Laser : MonoBehaviour
         };
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+
+        // Ray의 시작 지점과 방향 설정
+        origin = type switch
+        {
+            "up" => new Vector2(transform.position.x, transform.position.y + bias),
+            "down" => new Vector2(transform.position.x, transform.position.y - bias),
+            "left" => new Vector2(transform.position.x + bias, transform.position.y),
+            "right" => new Vector2(transform.position.x - bias, transform.position.y),
+            _ => Vector2.zero
+        };
+
+        direction = type switch
+        {
+            "up" => Vector2.down,
+            "down" => Vector2.up,
+            "left" => Vector2.right,
+            "right" => Vector2.left,
+            _ => Vector2.zero
+        };
+
+        // 레이저 경로를 초록색으로 표시
+        Gizmos.color = Color.green;
+
+        // Raycast 수행
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxDistance);
+
+        if (hit.collider != null)
+        {
+            // Raycast가 충돌한 경우
+            Gizmos.DrawLine(origin, hit.point);
+            Gizmos.DrawSphere(hit.point, 0.1f);
+        }
+        else
+        {
+            // Raycast가 충돌하지 않은 경우
+            Gizmos.DrawLine(origin, origin + direction * maxDistance);
+        }
+    }
 }
