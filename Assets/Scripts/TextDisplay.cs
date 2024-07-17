@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TextDisplay : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI totalDeath;
     public TMPro.TextMeshProUGUI nowDeath;
     public TMPro.TextMeshProUGUI stage;
+
+    public GameObject[] star;
 
     private void Start()
     {
@@ -49,5 +52,39 @@ public class TextDisplay : MonoBehaviour
             chapter++;
         }
         stage.text = "Stage " + chapter.ToString() + "-" + st.ToString();
+    }
+
+    public void MakeStar()
+    {
+        if(PlayerPrefs.GetInt("NowDeath", 0) < 30)
+        {
+            StartCoroutine(PopStar(1));
+        }
+        if (PlayerPrefs.GetInt("NowDeath", 0) < 20)
+        {
+            StartCoroutine(PopStar(2));
+        }
+        if (PlayerPrefs.GetInt("NowDeath", 0) < 10)
+        {
+            StartCoroutine(PopStar(3));
+        }
+    }
+
+    IEnumerator PopStar(int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            float elapsedTime = 0f;
+            star[i].SetActive(true);
+            while (elapsedTime < 0.5f)
+            {
+                star[i].GetComponent<RectTransform>().localScale = Vector3.Lerp(Vector3.zero, Vector3.one, elapsedTime / 0.5f);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            star[i].GetComponent<RectTransform>().localScale = Vector3.one;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

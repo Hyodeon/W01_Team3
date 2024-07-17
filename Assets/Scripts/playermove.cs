@@ -16,6 +16,8 @@ public class playermove : MonoBehaviour
 
     private bool isInZone = false;
 
+    private bool isPlaying = true;
+
     private Vector2 postForce;
 
     // External Bind Objects
@@ -37,63 +39,66 @@ public class playermove : MonoBehaviour
 
     void Update()
     {
-        RayCheck();
-
-        
-        transform.rotation = Quaternion.Euler(rMap.transform.rotation.x,
-            rMap.transform.rotation.y, -rMap.transform.rotation.z);
-
-        // ÁÂ¿ì ÀÌµ¿
-        float moveInput = Input.GetAxis("Horizontal");
-        if(!isStoped)
+        if(isPlaying)
         {
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        }
-        
-        // Á¡ÇÁ
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isStoped)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            isGrounded = false;
-        }
+            RayCheck();
 
-        if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating && !isInZone)
-        {
-            if(isStoped)
+
+            transform.rotation = Quaternion.Euler(rMap.transform.rotation.x,
+                rMap.transform.rotation.y, -rMap.transform.rotation.z);
+
+            // ÁÂ¿ì ÀÌµ¿
+            float moveInput = Input.GetAxis("Horizontal");
+            if (!isStoped)
             {
-                isStoped = false;
+                rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+            }
 
-                foreach(GameObject ind in Indicators)
+            // Á¡ÇÁ
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isStoped)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                isGrounded = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating && !isInZone)
+            {
+                if (isStoped)
                 {
-                    ind.SetActive(false);
+                    isStoped = false;
+
+                    foreach (GameObject ind in Indicators)
+                    {
+                        ind.SetActive(false);
+                    }
+
+                    sandClockUI.SetActive(false);
+                    rb.gravityScale = 1;
+                    rb.velocity = postForce;
+                }
+                else
+                {
+                    isStoped = true;
+
+                    foreach (GameObject ind in Indicators)
+                    {
+                        ind.SetActive(true);
+                    }
+
+                    sandClockUI.SetActive(true);
+                    postForce = rb.velocity;
+                    rb.velocity = Vector2.zero;
+                    rb.totalForce = Vector2.zero;
+                    rb.gravityScale = 0;
+
                 }
 
-                sandClockUI.SetActive(false);
-                rb.gravityScale = 1;
-                rb.velocity = postForce;
             }
-            else
+
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isStoped = true;
-
-                foreach (GameObject ind in Indicators)
-                {
-                    ind.SetActive(true);
-                }
-
-                sandClockUI.SetActive(true);
-                postForce = rb.velocity;
-                rb.velocity = Vector2.zero;
-                rb.totalForce = Vector2.zero;
-                rb.gravityScale = 0;
-                
+                SceneManager.LoadScene(0);
             }
-            
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("MainMenu");
         }
     }
 
@@ -124,10 +129,13 @@ public class playermove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Goal"))
         {
-
-            Time.timeScale = 0;
-            if(PlayerPrefs.GetInt("Clear") < MenuManager.MapNum + 2) PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
+            isPlaying = false;
+            rb.velocity = Vector2.zero;
+            rb.totalForce = Vector2.zero;
+            rb.gravityScale = 0;
+            if (PlayerPrefs.GetInt("Clear") < MenuManager.MapNum + 2) PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
             clearUI.SetActive(true);
+            TD.MakeStar();
         }
     }
 
