@@ -201,9 +201,11 @@ public class TileLoader : MonoBehaviour
                 break;
             case '8':
                 player.transform.position = pos;
+                player.transform.position += new Vector3(0, 0, -2);
                 break;
             case '9':
                 goal.transform.position = pos;
+                goal.transform.position += new Vector3(0, 0, -2);
                 break;
         }
     }
