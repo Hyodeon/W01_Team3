@@ -175,8 +175,6 @@ public class TileLoader : MonoBehaviour
                 temp4.GetOrAddComponent<Laser>().State = tileType[2] == 'P';
 
 
-                temp4.GetOrAddComponent<Laser>().Initialize();
-
                 laserList[id2].Add(temp4);
 
                 break;
@@ -217,6 +215,11 @@ public class TileLoader : MonoBehaviour
             int id = btn.Key;
 
             btn.Value.GetComponent<Button>().RegisterLaser(laserList[id]);
+
+            foreach (GameObject go in laserList[id])
+            {
+                go.GetComponent<Laser>().Initialize();
+            }
 
             Debug.Log($"버튼 id : {id} 에는 {laserList[id].Count}개의 레이저가 포함됩니다.");
         }

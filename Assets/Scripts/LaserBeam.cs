@@ -21,7 +21,7 @@ public class LaserBeam : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Detected new object on Laser");
-        if (!collision.gameObject.CompareTag("Player")) _shooter.GenerateLaser();
+        //Debug.Log("Detected new object on Laser");
+        //if (!collision.gameObject.CompareTag("Player")) _shooter.GenerateLaser();
     }
 }

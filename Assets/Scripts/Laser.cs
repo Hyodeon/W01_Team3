@@ -2,7 +2,9 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Laser : MonoBehaviour
 {
@@ -17,7 +19,9 @@ public class Laser : MonoBehaviour
     private Vector2 direction;
     public string type;
     public int id;
+    public GameObject map;
 
+    private float bias = -0.5f;
 
     private bool _state;
     // 속성을 통해 변수를 감시
@@ -35,40 +39,14 @@ public class Laser : MonoBehaviour
     private float distance = -1f;
     public float Distance { get { return distance; } }
 
-    void Start()
-    {
-
-        origin = type switch
-        {
-            "up" => new Vector2(transform.position.x, transform.position.y - 0.5f),
-            "down" => new Vector2(transform.position.x, transform.position.y + 0.5f),
-            "left" => new Vector2(transform.position.x - 0.5f, transform.position.y),
-            "right" => new Vector2(transform.position.x + 0.5f, transform.position.y),
-            _ => Vector2.zero
-        };
-
-        direction = type switch
-        {
-            "up" => Vector2.down,
-            "down" => Vector2.up,
-            "left" => Vector2.right,
-            "right" => Vector2.left,
-            _ => Vector2.zero
-        };
-
-        Debug.Log(direction);
-
-        ModifyLaser(State);
-    }
-
     public void Initialize()
     {
         origin = type switch
         {
-            "up" => new Vector2(transform.position.x, transform.position.y - 0.5f),
-            "down" => new Vector2(transform.position.x, transform.position.y + 0.5f),
-            "left" => new Vector2(transform.position.x - 0.5f, transform.position.y),
-            "right" => new Vector2(transform.position.x + 0.5f, transform.position.y),
+            "up" => new Vector2(transform.position.x, transform.position.y + bias),
+            "down" => new Vector2(transform.position.x, transform.position.y - bias),
+            "left" => new Vector2(transform.position.x - bias, transform.position.y),
+            "right" => new Vector2(transform.position.x + bias, transform.position.y),
             _ => Vector2.zero
         };
 
@@ -92,14 +70,23 @@ public class Laser : MonoBehaviour
 
     public void GenerateLaser()
     {
+
+        origin = type switch
+        {
+            "up" => new Vector2(transform.position.x, transform.position.y + bias),
+            "down" => new Vector2(transform.position.x, transform.position.y - bias),
+            "left" => new Vector2(transform.position.x - bias, transform.position.y),
+            "right" => new Vector2(transform.position.x + bias, transform.position.y),
+            _ => Vector2.zero
+        };
+
         // 초기 점검 (레이저 존재하면 없애고 다시 탐색)
         if (laserObject != null) Destroy(laserObject);
 
         LayerMask layerMask = 1 << LayerMask.NameToLayer("Default");
 
         // 1. 레이저 거리 재기
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction,
-             maxDistance, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxDistance);
 
         if (hit.collider != null)
         {
@@ -115,14 +102,21 @@ public class Laser : MonoBehaviour
         scale.x = distance;
         instance.transform.localScale = scale;
 
+        map = GameObject.Find("Map");
+
+        float zBias = map.transform.localRotation.z;
         if (type is "up" or "down")
         {
-            instance.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+            zBias += 90f;
         }
+
+        instance.transform.localRotation = Quaternion.Euler(0f, 0f, zBias);
 
 
         // 3. 레이저 오브젝트 배치
+
         Vector2 midPoint = (origin + hit.point) / 2;
+        Debug.Log($"{origin}과 {hit.point}");
         instance.transform.position = midPoint;
 
 
@@ -138,8 +132,62 @@ public class Laser : MonoBehaviour
 
     public void ModifyLaser(bool state)
     {
+
         if (state) GenerateLaser();
         else Destroy(laserObject);
     }
 
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+
+        // Ray의 시작 지점과 방향 설정
+        origin = type switch
+        {
+            "up" => new Vector2(transform.position.x, transform.position.y + bias),
+            "down" => new Vector2(transform.position.x, transform.position.y - bias),
+            "left" => new Vector2(transform.position.x - bias, transform.position.y),
+            "right" => new Vector2(transform.position.x + bias, transform.position.y),
+            _ => Vector2.zero
+        };
+
+        direction = type switch
+        {
+            "up" => Vector2.down,
+            "down" => Vector2.up,
+            "left" => Vector2.right,
+            "right" => Vector2.left,
+            _ => Vector2.zero
+        };
+
+        // 레이저 경로를 초록색으로 표시
+        Gizmos.color = Color.green;
+
+        // Raycast 수행
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxDistance);
+
+        if (hit.collider != null)
+        {
+            // Raycast가 충돌한 경우
+            Gizmos.DrawLine(origin, hit.point);
+            Gizmos.DrawSphere(hit.point, 0.1f);
+        }
+        else
+        {
+            // Raycast가 충돌하지 않은 경우
+            Gizmos.DrawLine(origin, origin + direction * maxDistance);
+        }
+    }
+
+    public void dump()
+    {
+        origin = type switch
+        {
+            "up" => new Vector2(transform.position.x, transform.position.y + bias),
+            "down" => new Vector2(transform.position.x, transform.position.y - bias),
+            "left" => new Vector2(transform.position.x - bias, transform.position.y),
+            "right" => new Vector2(transform.position.x + bias, transform.position.y),
+            _ => Vector2.zero
+        };
+    }
 }

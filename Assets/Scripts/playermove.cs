@@ -161,7 +161,7 @@ public class playermove : MonoBehaviour
 
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.CompareTag("Wall"))
+            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Laser"))
             {
 
                 rMap.GetComponent<RotateMap>().AttachPlayer();
