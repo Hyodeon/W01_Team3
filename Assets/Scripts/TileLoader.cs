@@ -56,27 +56,72 @@ public class TileLoader : MonoBehaviour
 
             for (int x = 0; x < values.Length; x++)
             {
-                int tileType = int.Parse(values[x]);
+                string tileType = values[x];
                 Vector2 position = new Vector2(startX + x, startY - y);
 
-                switch (tileType)
+                switch (tileType[0])
                 {
-                    case 1:
+                    case '1':
                         Instantiate(tilePrefab[0], position, Quaternion.identity, parent.transform);
                         break;
-                    case 2:
-                        Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
+                    case '2':
+                        switch(tileType[1])
+                        {
+                            case 'R':
+                                GameObject made = Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
+                                made.GetComponent<ColorPlatform>().type = "red";
+                                break;
+                            case 'G':
+                                GameObject made2 = Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
+                                made2.GetComponent<ColorPlatform>().type = "green";
+                                break;
+                            case 'B':
+                                GameObject made3 = Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
+                                made3.GetComponent<ColorPlatform>().type = "blue";
+                                break;
+                        }
                         break;
-                    case 3:
-                        Instantiate(tilePrefab[2], position, Quaternion.identity, parent.transform);
+                    case '3':
+                        //추가
                         break;
-                    case 4:
-                        Instantiate(tilePrefab[3], position, Quaternion.identity, parent.transform);
+                    case '4':
+                        //추가
                         break;
-                    case 8:
+                    case '5':
+                        Instantiate(tilePrefab[4], position, Quaternion.identity, parent.transform);
+                        break;
+                    case '6':
+                        switch(tileType[1])
+                        {
+                            case '1':
+                                Instantiate(tilePrefab[5], position, Quaternion.identity, parent.transform);
+                                break;
+                            case '2':
+                                Instantiate(tilePrefab[6], position, Quaternion.identity, parent.transform);
+                                break;
+                        }
+                        break;
+                    case '7':
+                        switch (tileType[1])
+                        {
+                            case 'R':
+                                GameObject made = Instantiate(tilePrefab[7], position, Quaternion.identity, parent.transform);
+                                made.GetComponent<ColorZone>().type = "red";
+                                break;
+                            case 'G':
+                                GameObject made2 = Instantiate(tilePrefab[7], position, Quaternion.identity, parent.transform);
+                                made2.GetComponent<ColorZone>().type = "green";
+                                break;
+                            case 'B':
+                                GameObject made3 = Instantiate(tilePrefab[7], position, Quaternion.identity, parent.transform);
+                                made3.GetComponent<ColorZone>().type = "blue";
+                                break;
+                        }
+                        break;
+                    case '8':
                         player.transform.position = position;
                         break;
-                    case 9:
+                    case '9':
                         goal.transform.position = position;
                         break;
                 }

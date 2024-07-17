@@ -28,7 +28,7 @@ public class playermove : MonoBehaviour
     public TextDisplay TD;
     public GameObject clearUI;
 
-    private string playerType;
+    public string playerType;
     public string PlayerType {  get { return playerType; } }
 
 

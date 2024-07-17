@@ -2,15 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ColorPlatform : MonoBehaviour
 {
     private Color color;
     public string type;
-
-    public UnityEvent SameColorEvents;
-    public UnityEvent DiffColorEvents;
 
     private void Start()
     {
@@ -33,14 +29,8 @@ public class ColorPlatform : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playermove pm = collision.gameObject.GetComponent<playermove>();
-            if (pm.PlayerType.CompareTo(type) == 0)
-            { // 둘의 색이 같은 경우
-                SameColorEvents.Invoke();
-            }
-            else // 둘의 색이 다른 경우
+            if (pm.PlayerType.CompareTo(type) != 0)
             {
-                Debug.Log("다르다고!");
-                DiffColorEvents.Invoke();
                 pm.Die();
             }
         }
