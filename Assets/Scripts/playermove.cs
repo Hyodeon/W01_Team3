@@ -8,7 +8,7 @@ public class playermove : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     private bool isStoped = false;
     private Rigidbody2D rb;
 
@@ -104,10 +104,6 @@ public class playermove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            isGrounded = true;
-        }
         if (collision.gameObject.CompareTag("Goal"))
         {
             isPlaying = false;

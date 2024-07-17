@@ -10,6 +10,7 @@ TagManager:
   - LaserWall
   - NoStopZone
   - Dust
+  - Feet
   layers:
   - Default
   - TransparentFX
