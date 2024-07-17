@@ -5,20 +5,37 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
     public GameObject swButton;
+    public int id;
 
-    GameObject[] laserWall;
+    public List<Laser> LaserList;
+
+    private bool isUsed = false;
+
     private void Start()
     {
-        laserWall = GameObject.FindGameObjectsWithTag("LaserWall");
+        
     }
+    
+    public void RegisterLaser(List<GameObject> list)
+    {
+        // TODO : Implement
+
+        foreach (GameObject laser in list)
+        {
+            LaserList.Add(laser.GetComponent<Laser>());
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Dust"))
-        {
-            swButton.transform.localPosition = new Vector3(0, -0.3f, 0);
-            foreach (GameObject wall in laserWall)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Dust"))
+            && !isUsed)
+        { // 플에이어 접촉시
+            isUsed = true;
+
+            foreach (Laser laser in LaserList)
             {
-                wall.SetActive(false);
+                laser.State = !laser.State;
             }
         }
     }

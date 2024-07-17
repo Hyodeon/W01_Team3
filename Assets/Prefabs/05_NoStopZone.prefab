@@ -12,6 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: 05_NoStopZone
   m_TagString: Untagged
+
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,11 +41,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+
   - component: {fileID: 3557595303884943999}
   - component: {fileID: 8013707582648047076}
   - component: {fileID: 5496412955156729117}
   m_Layer: 0
   m_Name: Square
+
   m_TagString: NoStopZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,6 +162,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
+
+
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+
