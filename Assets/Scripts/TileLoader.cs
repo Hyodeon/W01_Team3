@@ -23,8 +23,8 @@ public class TileLoader : MonoBehaviour
 
 
     // 레이저와 버튼을 연결하기 위한 리스트
-    private Dictionary<int, List<GameObject>> laserList;
-    private Dictionary<int, GameObject> buttonList;
+    private Dictionary<int, List<GameObject>> laserList = new Dictionary<int, List<GameObject>>();
+    private Dictionary<int, GameObject> buttonList = new Dictionary<int, GameObject>();
 
     void Start()
     {
@@ -40,7 +40,6 @@ public class TileLoader : MonoBehaviour
 
     void LoadTilesFromCSV()
     {
-
         buttonList.Clear();
         laserList.Clear();
         for (int i = 0; i < 10; i++)
