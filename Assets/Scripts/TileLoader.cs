@@ -188,13 +188,15 @@ public class TileLoader : MonoBehaviour
 
             case '7':
                 GameObject temp3 = Instantiate(tilePrefab[typeNumber + 1], pos, Quaternion.identity, parent.transform);
-                temp3.GetComponent<ColorPlatform>().type = tileType[1] switch
+                temp3.GetComponent<ColorZone>().type = tileType[1] switch
                 {
                     'R' => "red",
                     'G' => "green",
                     'B' => "blue",
                     _ => "none"
                 };
+
+                temp3.GetComponent<ColorZone>().Initialize();
 
                 break;
             case '8':

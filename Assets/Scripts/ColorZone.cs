@@ -7,7 +7,7 @@ public class ColorZone : MonoBehaviour
     private Color color;
     public string type;
 
-    private void Start()
+    public void Initialize()
     {
         color = type switch
         {
