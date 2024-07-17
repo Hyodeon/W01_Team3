@@ -29,7 +29,7 @@ public class ColorPlatform : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playermove pm = collision.gameObject.GetComponent<playermove>();
-            if (pm.PlayerType.CompareTo(type) != 0)
+            if (pm.PlayerType.CompareTo(type) != 0 && pm.isPlaying)
             {
                 pm.Die();
             }
