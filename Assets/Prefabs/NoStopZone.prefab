@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4260594600260116417}
   - component: {fileID: 6845600501350265216}
   - component: {fileID: 6001249936467409210}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Triangle (2)
   m_TagString: NoStopZone
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 8606708098580868311}
   - component: {fileID: 1547923544979153304}
   - component: {fileID: 3721795421243780800}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Triangle (3)
   m_TagString: NoStopZone
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 7688241570182439489}
   - component: {fileID: 1229154857357606332}
   - component: {fileID: 7782638266258936879}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Triangle (4)
   m_TagString: NoStopZone
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 867630125352998993}
   - component: {fileID: 8485832036648710501}
   - component: {fileID: 6327138658678672622}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Triangle
   m_TagString: NoStopZone
   m_Icon: {fileID: 0}
@@ -541,7 +541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4967544351141145571}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: NoStopZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
