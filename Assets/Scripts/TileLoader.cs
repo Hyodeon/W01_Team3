@@ -20,7 +20,6 @@ public class TileLoader : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1;
         LoadTilesFromCSV();
         TD.StageUpdate();
         AddBounds();
