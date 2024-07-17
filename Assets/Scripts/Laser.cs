@@ -59,7 +59,7 @@ public class Laser : MonoBehaviour
             _ => Vector2.zero
         };
 
-        ModifyLaser(State);
+        GenerateLaser();
     }
 
     // Update is called once per frame
@@ -102,19 +102,13 @@ public class Laser : MonoBehaviour
         scale.x = distance;
         instance.transform.localScale = scale;
 
-        map = GameObject.Find("Map");
-
-        float zBias = map.transform.localRotation.z;
         if (type is "up" or "down")
         {
-            zBias += 90f;
+            instance.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
         }
-
-        instance.transform.localRotation = Quaternion.Euler(0f, 0f, zBias);
 
 
         // 3. 레이저 오브젝트 배치
-
         Vector2 midPoint = (origin + hit.point) / 2;
         Debug.Log($"{origin}과 {hit.point}");
         instance.transform.position = midPoint;
@@ -128,55 +122,16 @@ public class Laser : MonoBehaviour
 
         laserBeam = laserObject.GetOrAddComponent<LaserBeam>();
         laserBeam.Initialize(gameObject);
+
+        if (!_state) laserBeam.gameObject.SetActive(false);
+        else laserBeam.gameObject.SetActive(true);
     }
 
     public void ModifyLaser(bool state)
     {
 
-        if (state) GenerateLaser();
-        else Destroy(laserObject);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) return;
-
-        // Ray의 시작 지점과 방향 설정
-        origin = type switch
-        {
-            "up" => new Vector2(transform.position.x, transform.position.y + bias),
-            "down" => new Vector2(transform.position.x, transform.position.y - bias),
-            "left" => new Vector2(transform.position.x - bias, transform.position.y),
-            "right" => new Vector2(transform.position.x + bias, transform.position.y),
-            _ => Vector2.zero
-        };
-
-        direction = type switch
-        {
-            "up" => Vector2.down,
-            "down" => Vector2.up,
-            "left" => Vector2.right,
-            "right" => Vector2.left,
-            _ => Vector2.zero
-        };
-
-        // 레이저 경로를 초록색으로 표시
-        Gizmos.color = Color.green;
-
-        // Raycast 수행
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxDistance);
-
-        if (hit.collider != null)
-        {
-            // Raycast가 충돌한 경우
-            Gizmos.DrawLine(origin, hit.point);
-            Gizmos.DrawSphere(hit.point, 0.1f);
-        }
-        else
-        {
-            // Raycast가 충돌하지 않은 경우
-            Gizmos.DrawLine(origin, origin + direction * maxDistance);
-        }
+        if (!_state) laserBeam.gameObject.SetActive(false);
+        else laserBeam.gameObject.SetActive(true);
     }
 
     public void dump()
@@ -190,4 +145,6 @@ public class Laser : MonoBehaviour
             _ => Vector2.zero
         };
     }
+
+    
 }
