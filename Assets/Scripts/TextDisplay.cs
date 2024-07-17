@@ -13,8 +13,8 @@ public class TextDisplay : MonoBehaviour
 
     private void Start()
     {
-        nowDeath.text = "Dead in Here : " + PlayerPrefs.GetInt("NowDeath", 0).ToString();
-        totalDeath.text = "Total Dead : " + PlayerPrefs.GetInt("TotalDeath", 0).ToString();
+        nowDeath.text = "Stage Deaths : " + PlayerPrefs.GetInt("NowDeath", 0).ToString();
+        totalDeath.text = "Total Deaths : " + PlayerPrefs.GetInt("TotalDeath", 0).ToString();
     }
 
     public void TotalDeathUpdate()
@@ -23,7 +23,7 @@ public class TextDisplay : MonoBehaviour
         d = PlayerPrefs.GetInt("TotalDeath", 0);
         d++;
         PlayerPrefs.SetInt("TotalDeath", d);
-        totalDeath.text = "Total Dead : " + d.ToString();
+        totalDeath.text = "Total Deaths : " + d.ToString();
     }
 
     public void NowDeathUpdate()
@@ -32,7 +32,7 @@ public class TextDisplay : MonoBehaviour
         d = PlayerPrefs.GetInt("NowDeath", 0);
         d++;
         PlayerPrefs.SetInt("NowDeath", d);
-        nowDeath.text = "Dead in Here : " + d.ToString();
+        nowDeath.text = "Stage Deaths : " + d.ToString();
     }
 
     public void StageUpdate()
