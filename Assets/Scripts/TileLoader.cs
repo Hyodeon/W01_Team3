@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TileLoader : MonoBehaviour
 {
@@ -17,6 +20,11 @@ public class TileLoader : MonoBehaviour
     public GameObject goal;
 
     public TextDisplay TD;
+
+
+    // 레이저와 버튼을 연결하기 위한 리스트
+    private Dictionary<int, List<GameObject>> laserList;
+    private Dictionary<int, GameObject> buttonList;
 
     void Start()
     {
@@ -59,74 +67,11 @@ public class TileLoader : MonoBehaviour
                 string tileType = values[x];
                 Vector2 position = new Vector2(startX + x, startY - y);
 
-                switch (tileType[0])
-                {
-                    case '1':
-                        Instantiate(tilePrefab[0], position, Quaternion.identity, parent.transform);
-                        break;
-                    case '2':
-                        switch(tileType[1])
-                        {
-                            case 'R':
-                                GameObject made = Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
-                                made.GetComponent<ColorPlatform>().type = "red";
-                                break;
-                            case 'G':
-                                GameObject made2 = Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
-                                made2.GetComponent<ColorPlatform>().type = "green";
-                                break;
-                            case 'B':
-                                GameObject made3 = Instantiate(tilePrefab[1], position, Quaternion.identity, parent.transform);
-                                made3.GetComponent<ColorPlatform>().type = "blue";
-                                break;
-                        }
-                        break;
-                    case '3':
-                        //추가
-                        break;
-                    case '4':
-                        //추가
-                        break;
-                    case '5':
-                        Instantiate(tilePrefab[4], position, Quaternion.identity, parent.transform);
-                        break;
-                    case '6':
-                        switch(tileType[1])
-                        {
-                            case '1':
-                                Instantiate(tilePrefab[5], position, Quaternion.identity, parent.transform);
-                                break;
-                            case '2':
-                                Instantiate(tilePrefab[6], position, Quaternion.identity, parent.transform);
-                                break;
-                        }
-                        break;
-                    case '7':
-                        switch (tileType[1])
-                        {
-                            case 'R':
-                                GameObject made = Instantiate(tilePrefab[7], position, Quaternion.identity, parent.transform);
-                                made.GetComponent<ColorZone>().type = "red";
-                                break;
-                            case 'G':
-                                GameObject made2 = Instantiate(tilePrefab[7], position, Quaternion.identity, parent.transform);
-                                made2.GetComponent<ColorZone>().type = "green";
-                                break;
-                            case 'B':
-                                GameObject made3 = Instantiate(tilePrefab[7], position, Quaternion.identity, parent.transform);
-                                made3.GetComponent<ColorZone>().type = "blue";
-                                break;
-                        }
-                        break;
-                    case '8':
-                        player.transform.position = position;
-                        break;
-                    case '9':
-                        goal.transform.position = position;
-                        break;
-                }
+                GenerateTile(tileType, position);
             }
         }
+
+        ConnectLaser();
     }
 
     void AddBounds()
@@ -167,6 +112,96 @@ public class TileLoader : MonoBehaviour
             // 우측 테두리
             Vector2 rightPosition = new Vector2(startX + cols + boundDistance - 1, startY - y);
             Instantiate(boundPrefab, rightPosition, Quaternion.identity, parent.transform);
+        }
+    }
+
+    void GenerateTile(string tileType, Vector2 pos)
+    {
+        int typeNumber = int.Parse(tileType[0].ToString()) - 1;
+
+        switch (tileType[0])
+        {
+            case '1':
+            case '5':
+                // [1] 벽과 [5] 시간 정지 불가능 지역
+                Instantiate(tilePrefab[typeNumber], pos, Quaternion.identity, parent.transform);
+                break;
+
+                // [2] 장애물 - 색
+            case '2':
+                GameObject temp1 = Instantiate(tilePrefab[typeNumber], pos, Quaternion.identity, parent.transform);
+                temp1.GetComponent<ColorPlatform>().type = tileType[1] switch
+                {
+                    'R' => "red",
+                    'G' => "green",
+                    'B' => "blue",
+                    _ => "none"
+                };
+                break;
+
+            case '3':
+                // 레이저 버튼
+                GameObject temp2 = Instantiate(tilePrefab[typeNumber + 1], pos, Quaternion.identity, parent.transform);
+                int id1 = int.Parse(tileType[1].ToString());
+
+                temp2.GetOrAddComponent<Button>().id = id1;
+                buttonList.Add(id1, temp2);
+
+                break;
+
+            case '4':
+                // 레이저 사출기
+                GameObject temp4 = Instantiate(tilePrefab[typeNumber + 1], pos, Quaternion.identity, parent.transform);
+                temp4.GetOrAddComponent<Laser>().type = tileType[1] switch
+                {
+                    '1' => "up",
+                    '2' => "down",
+                    '3' => "left",
+                    '4' => "right",
+                    _ => "none"
+                };
+                temp4.GetOrAddComponent<Laser>().id = int.Parse(tileType[3].ToString());
+
+                temp4.GetOrAddComponent<Laser>().Initialize();
+                int id2 = int.Parse(tileType[1].ToString());
+
+                temp4.GetOrAddComponent<Button>().id = id2;
+                laserList[id2].Add(temp4);
+
+                break;
+
+            case '6':
+                int detailType = int.Parse(tileType[1].ToString());
+                Instantiate(tilePrefab[typeNumber + detailType - 1], pos, Quaternion.identity, parent.transform);
+                break;
+
+            case '7':
+                GameObject temp3 = Instantiate(tilePrefab[typeNumber + 1], pos, Quaternion.identity, parent.transform);
+                temp3.GetComponent<ColorPlatform>().type = tileType[1] switch
+                {
+                    'R' => "red",
+                    'G' => "green",
+                    'B' => "blue",
+                    _ => "none"
+                };
+
+                break;
+            case '8':
+                player.transform.position = pos;
+                break;
+            case '9':
+                goal.transform.position = pos;
+                break;
+        }
+    }
+
+    void ConnectLaser()
+    {
+        foreach (var btn in buttonList)
+        {
+            int id = btn.Key;
+
+            btn.Value.GetComponent<Button>().RegisterLaser(laserList[id]);
         }
     }
 }
