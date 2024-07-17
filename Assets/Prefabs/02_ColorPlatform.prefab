@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6023944086170304530}
   - component: {fileID: -2704024498727421431}
   m_Layer: 0
-  m_Name: ColorPlatform
+  m_Name: 02_ColorPlatform
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

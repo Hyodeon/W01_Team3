@@ -542,7 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4967544351141145571}
   m_Layer: 0
-  m_Name: NoStopZone
+  m_Name: 05_NoStopZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
