@@ -23,6 +23,9 @@ public class playermove : MonoBehaviour
     public GameObject[] Indicators;
     public GameObject rMap;
 
+    public TextDisplay TD;
+    public GameObject clearUI;
+
     private string playerType;
     public string PlayerType {  get { return playerType; } }
 
@@ -121,8 +124,10 @@ public class playermove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Goal"))
         {
-            Debug.Log("Clear");
-            PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
+
+            Time.timeScale = 0;
+            if(PlayerPrefs.GetInt("Clear") < MenuManager.MapNum + 2) PlayerPrefs.SetInt("Clear", MenuManager.MapNum + 2);
+            clearUI.SetActive(true);
         }
     }
 
@@ -182,7 +187,8 @@ public class playermove : MonoBehaviour
         if (isAlive)
         {
             isAlive = false;
-            ShowDeathNum.death++;
+            TD.NowDeathUpdate();
+            TD.TotalDeathUpdate();
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

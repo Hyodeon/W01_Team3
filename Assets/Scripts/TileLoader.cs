@@ -16,14 +16,18 @@ public class TileLoader : MonoBehaviour
     public GameObject player;
     public GameObject goal;
 
+    public TextDisplay TD;
+
     void Start()
     {
+        Time.timeScale = 1;
         LoadTilesFromCSV();
+        TD.StageUpdate();
         AddBounds();
         if (mainCamera != null)
         {
             mainCamera.orthographicSize = size;
-            mainCamera.transform.position = new Vector3(size - 0.5f, 0, -10);
+            mainCamera.transform.position = new Vector3(size - 4f, 0, -10);
         }
     }
 
