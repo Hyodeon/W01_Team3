@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         if (PlayerPrefs.GetInt("Clear") <= 0) PlayerPrefs.SetInt("Clear", 1);
-        if(PlayerPrefs.GetInt("Clear") >= 20) SpecialGroup.gameObject.SetActive(true);
+        if(PlayerPrefs.GetInt("Clear") >= 21) SpecialGroup.gameObject.SetActive(true);
         else SpecialGroup.gameObject.SetActive(false);
         for (int i = 0; i < buttons.Length && i < MapFiles.Length && i < PlayerPrefs.GetInt("Clear"); i++)
         {
@@ -23,7 +23,7 @@ public class MenuManager : MonoBehaviour
             buttons[i].onClick.AddListener(() => OnButtonClick(val));
             buttons[i].interactable = true;
         }
-        if (PlayerPrefs.GetInt("Clear") >= 20)
+        if (PlayerPrefs.GetInt("Clear") >= 21)
         {
             for (int i = 21; i < buttons.Length && i < MapFiles.Length; i++)
             {
