@@ -16,7 +16,7 @@ public class playermove : MonoBehaviour
 
     private bool isInZone = false;
 
-    private bool isPlaying = true;
+    public bool isPlaying = true;
 
     private Vector2 postForce;
 

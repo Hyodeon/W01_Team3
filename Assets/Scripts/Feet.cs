@@ -9,7 +9,7 @@ public class Feet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            //player.isGrounded = true;
+            player.isGrounded = true;
         }
     }
 }
