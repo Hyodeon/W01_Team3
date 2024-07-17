@@ -9,8 +9,8 @@ public class playermove : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public bool isGrounded = true;
-    private bool isStoped = false;
-    private Rigidbody2D rb;
+    public bool isStoped = false;
+    public Rigidbody2D rb;
 
     private bool isAlive = true;
 
@@ -18,7 +18,9 @@ public class playermove : MonoBehaviour
 
     public bool isPlaying = true;
 
-    private Vector2 postForce;
+    public bool isNoTime = false;
+
+    public Vector2 postForce;
 
     // External Bind Objects
     public GameObject sandClockUI;
@@ -61,7 +63,7 @@ public class playermove : MonoBehaviour
                 isGrounded = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating && !isInZone)
+            if (Input.GetKeyDown(KeyCode.T) && !rMap.GetComponent<RotateMap>().IsRotating && !isInZone && !isNoTime)
             {
                 if (isStoped)
                 {
