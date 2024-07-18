@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: "3\uD300_\uC2E0\uBBFC\uAE30\uC2E0\uD6A8\uC9C4\uC784\uC7AC\uADE0\uC774\uC2DC"
-  productName: "W01_3\uD300_\uC2E0\uBBFC\uAE30\uC2E0\uD6A8\uC9C4\uC784\uC7AC\uADE0\uC774\uC2DC"
+  companyName: "3\uD300"
+  productName: TIME 5TOP
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
